@@ -47,7 +47,7 @@ pipeline {
     stage('Create & Deploy containerized App image on EC2') {
       steps {
         parallel(
-          'build docker image':{
+          'create & deploy':{
             node('master') {
               deleteDir()
 	      unstash 'code'
@@ -62,10 +62,11 @@ pipeline {
 	stage('Testing') {
       steps {
         parallel(
-          'flask docker image':{
+          'Testing':{
             node('master') {
               deleteDir()
-              sh 'echo "HELLO"'
+	      build 'integration_testing'
+              sh 'echo `cat /var/tmp/publicip`:9080/Presentation-0.0.1-SNAPSHOT/'
             }
           }
         )
