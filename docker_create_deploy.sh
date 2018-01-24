@@ -16,5 +16,7 @@ sudo docker rm pwc_demo
 gunzip pwc_demo_${BUILD_NUMBER}.tar.gz
 sudo docker load -i pwc_demo_${BUILD_NUMBER}.tar
 sudo docker run   -d --name pwc_demo -p 9080:8080 pwc_demo
+sudo /usr/share/filebeat/bin/filebeat -e -c /etc/filebeat/filebeat.yml &
+sudo /home/ec2-user/metricbeat/metricbeat-6.1.2-linux-x86_64/metricbeat -e -c /home/ec2-user/metricbeat/metricbeat-6.1.2-linux-x86_64/metricbeat.yml &
 EOF
 
